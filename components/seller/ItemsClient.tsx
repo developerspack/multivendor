@@ -17,7 +17,10 @@ const ItemsClient = () => {
   return (
     <div className="px-4 mt-4">
       <div className="flex items-center justify-between pb-8">
-        <Heading title={"View Items"} description={"View and Edit Items"} />
+        <Heading
+          title={"View Products"}
+          description={"View and Edit Products"}
+        />
       </div>
 
       <Suspense fallback={<ItemsSkeleton />}>

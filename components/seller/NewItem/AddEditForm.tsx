@@ -29,6 +29,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { UpdateDcoument, uploadDocument } from "@/Hooks/Hooks";
+import { useUserStore } from "@/store/user";
 // import { useUserStore } from "@/store/user";
 
 // form velidation
@@ -48,19 +50,13 @@ interface AddEditFormProps {
   id: string;
 }
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [otherImages, setOtherImages] = useState<string[] | null>([]);
   const [thumbnail, setTumbnail] = useState<string | null>("");
-  const [video, setVideo] = useState<string | null>("");
-  const [value, setValue] = useState<Value>(new Date());
 
-  // const { user } = useUserStore();
+  const { user } = useUserStore();
 
   useEffect(() => {
     if (Object.keys(initialData).length > 0) {
@@ -69,11 +65,8 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
           form.setValue(fieldName, initialData[fieldName]);
         }
       }
-      setOtherImages(initialData.otherImages);
-      setTumbnail(initialData.Thumbnail);
-      setVideo(initialData.video);
-
-      setValue(initialData.expiryDate);
+      setOtherImages(initialData.otherImageUrl);
+      setTumbnail(initialData.imageUrl);
     }
   }, [initialData]);
   // dynamic text
@@ -97,7 +90,6 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
         imageUrl: "",
         otherImageUrl: [],
         Price: 0,
-        productNo: 0,
         Discount: 0,
         Category: "",
         Description: "",
@@ -110,23 +102,21 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
 
   // submit values
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // console.log(values);
     setIsLoading(true);
     const uploadValues = {
       ...values,
-      // userId: user.id,
-      expiryDate: `${value}`,
-      BidAccepted:
-        Object.keys(initialData).length > 0 ? initialData.BidAccepted : false,
+      userId: user.id,
     };
 
     try {
       if (Object.keys(initialData).length > 0) {
-        // await UpdateDcoument("items", id, uploadValues);
+        await UpdateDcoument("products", id, uploadValues);
       } else {
-        // await uploadDocument("items", uploadValues);
+        await uploadDocument("products", uploadValues);
       }
       setIsLoading(false);
-      // router.push(`/user/${user.id}/viewItems`);
+      router.push(`/user/${user.id}/viewItems`);
     } catch (error) {
       console.error("Error uploading to Firebase:", error);
       setIsLoading(false);
@@ -145,7 +135,7 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
           {/* image */}
           <FormField
             control={form.control}
-            name="Thumbnail"
+            name="imageUrl"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Product Thumbnail</FormLabel>
@@ -164,7 +154,7 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
 
           <FormField
             control={form.control}
-            name="otherImages"
+            name="otherImageUrl"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Upload Other Images(Optional)</FormLabel>
@@ -247,24 +237,6 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
                     <Input
                       disabled={isLoading}
                       placeholder="Discount"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-            {/* productNo */}
-            <FormField
-              control={form.control}
-              name="productNo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Available</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      placeholder="Products Available"
                       {...field}
                     />
                   </FormControl>

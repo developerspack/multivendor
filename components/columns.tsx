@@ -4,16 +4,16 @@ import { ColumnDef } from "@tanstack/react-table";
 import { RiArrowUpDownFill } from "react-icons/ri";
 
 import { Button } from "@/components/ui/button";
-import CellActions from "./CellActions";
+import CellActions from "@/components/seller/CellActions";
 
 export const columns: ColumnDef<any>[] = [
   {
-    accessorKey: "Thumbnail",
+    accessorKey: "imageUrl",
     header: "Image",
     cell: ({ row }) => (
       <div className="text-center">
         <img
-          src={row.getValue("Thumbnail")}
+          src={row.getValue("imageUrl")}
           alt="itemImage"
           className="h-10 w-10 rounded-md"
         />
@@ -37,7 +37,7 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "startingPrice",
+    accessorKey: "Price",
     header: ({ column }) => {
       return (
         <Button
@@ -45,13 +45,13 @@ export const columns: ColumnDef<any>[] = [
           className="-ml-[20px]"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Starting Price
+          Price
           <RiArrowUpDownFill className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("startingPrice"));
+      const amount = parseFloat(row.getValue("Price"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "Ksh",
@@ -60,14 +60,36 @@ export const columns: ColumnDef<any>[] = [
       return <div className="font-medium">{formatted}</div>;
     },
   },
+  // Name: "",
+  // Brand: "",
+  // imageUrl: "",
+  // otherImageUrl: [],
+  // Price: 0,
+  // Discount: 0,
+  // Category: "",
+  // Description: "",
   {
-    accessorKey: "bidding",
-    header: "Bidding is",
+    accessorKey: "Discount",
+    header: "Discount",
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("Price"));
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "Ksh",
+      }).format(amount);
+
+      return <div className="font-medium">{formatted}</div>;
+    },
   },
+  // {
+  //   accessorKey: "createdAt",
+  //   header: "Bid",
+  //   cell: ({ row }) => <Moment fromNow>{row.getValue("createdAt")}</Moment>,
+  // },
 
   {
     id: "actions",
     header: "Actions",
-    cell: ({ row }) => <CellActions data={row.original} Name="items" />,
+    cell: ({ row }) => <CellActions data={row.original} Name="products" />,
   },
 ];

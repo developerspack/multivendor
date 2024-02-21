@@ -46,33 +46,20 @@ const CellActions = ({ data, Name }: CellActionProps) => {
           Copy {Name} id
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        {user.id === data.userId && (
-          <>
-            <DropdownMenuItem
-              onClick={() => router.push(`/u/${user?.id}/${data.id}`)}
-            >
-              <BiEdit className="h-4 w-4 mr-2 text-green-400" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() =>
-                HandleDelete(
-                  data.id,
-                  Name,
-                  data.Thumbnail,
-                  data.otherImages,
-                  data.video
-                )
-              }
-            >
-              <AiFillDelete className="h-4 w-4 mr-2 text-red-500" />
-              Delete
-            </DropdownMenuItem>
-          </>
-        )}
-        <DropdownMenuItem onClick={() => router.push(`/${data.id}`)}>
-          <AiFillEye className="h-4 w-4 mr-2 text-blue-500" />
-          View Bids
+
+        <DropdownMenuItem
+          onClick={() => router.push(`/user/${user?.id}/${data.id}`)}
+        >
+          <BiEdit className="h-4 w-4 mr-2 text-green-400" />
+          Edit
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() =>
+            HandleDelete(data.id, Name, data.imageUrl, data.otherImageUrl)
+          }
+        >
+          <AiFillDelete className="h-4 w-4 mr-2 text-red-500" />
+          Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

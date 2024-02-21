@@ -8,7 +8,7 @@ interface AddEditClientProps {
 }
 
 const AddEditClient = ({ id }: AddEditClientProps) => {
-  const { document } = FetchDocument("items", id);
+  const { document } = FetchDocument("products", id);
 
   return <AddEditForm initialData={document} id={id} />;
 };

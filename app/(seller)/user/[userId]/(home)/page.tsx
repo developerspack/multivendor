@@ -1,6 +1,8 @@
 // import { db } from "@/lib/firebase";
 // import { doc, getDoc } from "firebase/firestore";
 
+import Profile from "@/components/seller/Profile";
+
 // export async function generateMetadata({
 //   params,
 // }: {
@@ -32,7 +34,7 @@ const DashboardHomePage = ({
     userId: string;
   };
 }) => {
-  return <div>home</div>;
+  return <Profile />;
 };
 
 export default DashboardHomePage;

@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Search } from "../navigation/search";
+import { Search } from "./search";
 import { Actions } from "../actions";
 
 const Header = () => {
   return (
-    <div className="bg-[#dddddd] dark:bg-[#191919] p-4 justify-between flex">
+    <div className="bg-[#dddddd] dark:bg-[#191919] p-4 justify-between flex sticky z-40 top-0">
       <Link href="/">
         <div className="flex items-center gap-x-4 hover:opacity-75 transition">
           <div className="bg-white rounded-full p-1 mr-12 shrink-0 lg:mr-0 lg:shrink">

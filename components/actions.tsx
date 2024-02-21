@@ -8,19 +8,16 @@ import { ThemeDropDown } from "@/components/theme/ThemeDropDown";
 import { LoginWithGoogle } from "@/Hooks/Hooks";
 import UserAvatar from "./UserAvatar";
 import { Hint } from "./hint";
+import { useUserStore } from "@/store/user";
 
 export const Actions = () => {
-  const user = {
-    isLoggedIn: true,
-    id: 212,
-  };
-
+  const { user } = useUserStore();
   return (
     <div className="flex items-center justify-end gap-x-2 ml-4 lg:ml-0">
       {!user.isLoggedIn && <LoginWithGoogle />}
       {user.isLoggedIn && (
         <div className="flex items-center gap-x-4">
-          <Hint label="Auctioneer's Dashboard">
+          <Hint label="Seller's Dashboard">
             <Button
               size="sm"
               variant="ghost"

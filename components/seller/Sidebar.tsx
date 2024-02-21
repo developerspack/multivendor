@@ -6,11 +6,10 @@ import { MdCreateNewFolder, MdOutlineCreateNewFolder } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { RiProductHuntFill, RiProductHuntLine } from "react-icons/ri";
 import SidebarOption from "./SidebarOption";
+import { useUserStore } from "@/store/user";
 
 const Sidebar = () => {
-  const user = {
-    id: 212,
-  };
+  const { user } = useUserStore();
   const routes = [
     {
       label: "Profile",
@@ -19,14 +18,14 @@ const Sidebar = () => {
       active: FaUserCircle,
     },
     {
-      label: "Create Item",
+      label: "Create Products",
       href: `/user/${user?.id}/new`,
       icon: MdOutlineCreateNewFolder,
       active: MdCreateNewFolder,
     },
     {
-      label: "View Item",
-      href: `/user/${user?.id}/viewItems`,
+      label: "View Products",
+      href: `/user/${user?.id}/viewProducts`,
       icon: RiProductHuntLine,
       active: RiProductHuntFill,
     },

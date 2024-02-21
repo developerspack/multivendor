@@ -19,11 +19,11 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { toast } from "sonner";
 
 import { auth, db, storage } from "@/lib/firebase";
-// import { useUserStore } from "@/store/user";
+import { useUserStore } from "@/store/user";
 import { Button } from "@/components/ui/button";
 
 export const LoginWithGoogle = () => {
-  // const { setUser } = useUserStore();
+  const { setUser } = useUserStore();
   // login with google
   const Login = () => {
     const provider = new GoogleAuthProvider();
