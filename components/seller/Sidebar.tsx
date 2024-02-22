@@ -36,9 +36,8 @@ const Sidebar = () => {
     <div className="ml-10 hidden md:flex fixed h-[700px] bg-[#dddddd] dark:bg-[#191919] rounded-md">
       <ul className="space-y-2 px-2 mt-4 lg:pt-0">
         {routes.map((route) => (
-          <li className="w-full">
+          <li className="w-full" key={route.href}>
             <SidebarOption
-              key={route.href}
               label={route.label}
               icon={route.icon}
               active={route.active}
