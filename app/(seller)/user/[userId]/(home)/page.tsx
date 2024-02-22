@@ -1,31 +1,32 @@
-// import { db } from "@/lib/firebase";
-// import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+
+import { db } from "@/lib/firebase";
 
 import Profile from "@/components/seller/Profile";
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: {
-//     userId: string;
-//   };
-// }) {
-//   let Name = "";
-//   const docRef = doc(db, "users", params.userId);
-//   const docSnap = await getDoc(docRef);
-//   if (docSnap.exists()) {
-//     const obj = {
-//       id: params.userId,
-//       ...docSnap.data(),
-//     };
-//     // @ts-ignore
-//     Name = obj.name;
-//   }
+export async function generateMetadata({
+  params,
+}: {
+  params: {
+    userId: string;
+  };
+}) {
+  let Name = "";
+  const docRef = doc(db, "users", params.userId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const obj = {
+      id: params.userId,
+      ...docSnap.data(),
+    };
+    // @ts-ignore
+    Name = obj.name;
+  }
 
-//   return {
-//     title: Name,
-//   };
-// }
+  return {
+    title: Name,
+  };
+}
 
 const DashboardHomePage = ({
   params,
@@ -34,7 +35,7 @@ const DashboardHomePage = ({
     userId: string;
   };
 }) => {
-  return <Profile />;
+  return <Profile userId={params.userId} />;
 };
 
 export default DashboardHomePage;

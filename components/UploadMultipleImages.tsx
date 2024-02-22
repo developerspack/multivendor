@@ -85,7 +85,7 @@ const UploadMultipleImages = ({
           onClick={() => filePickerRef.current!.click()}
         >
           {loading ? (
-            <p>Loading....</p>
+            <p>Uploading....</p>
           ) : (
             // <CirclesWithBar
             //   height="30"

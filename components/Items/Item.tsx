@@ -7,8 +7,6 @@ import { response } from "@/response";
 
 export const Item = () => {
   const { data, loading } = FetchDocuments("products");
-  console.log(data);
-
   return (
     <>
       {loading ? (
@@ -19,7 +17,7 @@ export const Item = () => {
             Items we think you will like
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2">
-            {data.map((result: any) => (
+            {response.map((result: any) => (
               <ItemCard key={result.id} data={result} />
             ))}
           </div>

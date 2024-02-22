@@ -52,8 +52,12 @@ const UserAvatar = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => router.push(`/u/${user.id}`)}>
-          My Profile
+        <DropdownMenuItem onClick={() => router.push("/cart")}>
+          Cart
+        </DropdownMenuItem>
+        <Separator />
+        <DropdownMenuItem onClick={() => router.push("/myorders")}>
+          My Order
         </DropdownMenuItem>
         <Separator />
         <DropdownMenuItem onClick={LogOut}>Sign Out</DropdownMenuItem>

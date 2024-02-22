@@ -5,6 +5,9 @@ import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { FetchDocument } from "@/Hooks/Hooks";
+import { MouseEventHandler } from "react";
+import useCart from "@/store/use-cart";
+import { Button } from "../ui/button";
 
 interface ItemCardProps {
   data: any;
@@ -16,9 +19,19 @@ export const ItemCard = ({ data }: ItemCardProps) => {
     style: "currency",
     currency: "Ksh",
   }).format(data.Price);
+
+  const cart = useCart();
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    const product = {
+      ...data,
+      qty: 1,
+    };
+    cart.addItem(product);
+  };
   return (
-    <Link href={`/${data.id}`}>
-      <div className="h-full w-full space-y-4 bg-stone-900/10 dark:bg-stone-50/10 rounded-md">
+    <div className="h-full w-full space-y-4 bg-stone-900/10 dark:bg-stone-50/10 rounded-md">
+      <Link href={`/${data.id}`}>
         <div className="aspect-video relative rounded-md cursor-pointer">
           <Image
             src={data.imageUrl}
@@ -27,6 +40,9 @@ export const ItemCard = ({ data }: ItemCardProps) => {
             className="object-cover transition-transform group-hover:translate-x-2 group-hover:-translate-y-2 rounded-md"
           />
         </div>
+      </Link>
+
+      <div>
         <div className="flex gap-x-3 p-2">
           <div className="flex flex-col text-sm overflow-hidden">
             <p className="truncate font-semibold text-base hover:text-blue-500">
@@ -37,7 +53,7 @@ export const ItemCard = ({ data }: ItemCardProps) => {
               <span className="text-base font-bold">{formatted}</span>
             </div>
             <Link
-              href={`/user/${data.userId}`}
+              href={`/sellerProfile/${data.userId}`}
               className="truncate font-semibold"
             >
               <span className="font-medium text-lg text-blue-500">
@@ -49,8 +65,14 @@ export const ItemCard = ({ data }: ItemCardProps) => {
             </Link>
           </div>
         </div>
+        <Button
+          className="bg-blue-500 hover:bg-blue-600 mb-4 float-right mr-4"
+          onClick={onAddToCart}
+        >
+          Add To Cart
+        </Button>
       </div>
-    </Link>
+    </div>
   );
 };
 

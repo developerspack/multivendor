@@ -1,5 +1,7 @@
+import CartClient from "@/components/cart/CartClient";
+
 const CartPage = () => {
-  return <div>CartPage</div>;
+  return <CartClient />;
 };
 
 export default CartPage;
