@@ -11,12 +11,12 @@ const SearchClient = ({ query }: { query?: string }) => {
   const currentDate = new Date();
 
   // Filter the data to get only items that have not expired
-  const NonExpiredItems = data.filter((item: itemProps) => {
+  const NonExpiredItems = data.filter((item: any) => {
     const expiryDate = new Date(item.expiryDate);
     return expiryDate > currentDate; // Compare expiryDate with current date
   });
 
-  const FilteredItems = NonExpiredItems.filter((item: itemProps) =>
+  const FilteredItems = NonExpiredItems.filter((item: any) =>
     item.Name.toLowerCase().includes(query!.toLowerCase())
   );
 
@@ -32,7 +32,7 @@ const SearchClient = ({ query }: { query?: string }) => {
           </p>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2">
-          {FilteredItems.map((result: itemProps) => (
+          {FilteredItems.map((result: any) => (
             <ItemCard data={result} key={result.id} />
           ))}
         </div>
