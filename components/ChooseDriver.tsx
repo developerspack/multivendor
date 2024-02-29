@@ -53,7 +53,7 @@ const ChooseDriver = ({ setOpen, open }: ChooseDriverProps) => {
             {loading ? (
               <TableLoading />
             ) : (
-              <ScrollArea className="h-[80vh] w-full border border-none">
+              <ScrollArea className="h-[60vh] w-full border border-none">
                 <p>
                   Selected Driver:{" "}
                   {driver.name === "" ? "None Selected" : driver.name}
