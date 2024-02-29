@@ -61,7 +61,7 @@ const DeliveryDetails = ({ setOpen, open }: ChooseDriverProps) => {
 
   const host =
     process.env.NODE_ENV === "production"
-      ? process.env.NEXTAUTH_URL!
+      ? "https://dpmultivendor.vercel.app"
       : "http://localhost:3000";
 
   const form = useForm({
