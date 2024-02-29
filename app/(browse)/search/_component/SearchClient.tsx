@@ -2,21 +2,14 @@
 
 import { Suspense } from "react";
 
-import { FetchCollection } from "@/Hooks/Hooks";
-import { ItemCard } from "../../../../components/Items/ItemCard";
-import { ResultsSkeleton } from "../../../../components/Items/Item";
+import { FetchDocuments } from "@/Hooks/Hooks";
+import { ItemCard } from "@/components/Items/ItemCard";
+import { ResultsSkeleton } from "@/components/Items/Item";
 
 const SearchClient = ({ query }: { query?: string }) => {
-  const { data } = FetchCollection("items", "Open", "bidding");
-  const currentDate = new Date();
+  const { data } = FetchDocuments("products");
 
-  // Filter the data to get only items that have not expired
-  const NonExpiredItems = data.filter((item: any) => {
-    const expiryDate = new Date(item.expiryDate);
-    return expiryDate > currentDate; // Compare expiryDate with current date
-  });
-
-  const FilteredItems = NonExpiredItems.filter((item: any) =>
+  const FilteredItems = data.filter((item: any) =>
     item.Name.toLowerCase().includes(query!.toLowerCase())
   );
 

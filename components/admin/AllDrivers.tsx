@@ -4,33 +4,25 @@ import { Suspense } from "react";
 
 import { DataTable } from "@/components/DataTable";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FetchCollection } from "@/Hooks/Hooks";
-import { useUserStore } from "@/store/user";
+import { FetchDocuments } from "@/Hooks/Hooks";
 import Heading from "@/components/heading";
-import { columns } from "@/components/columns";
+import { DriverColumns } from "./DriverColumn";
 
-const ItemsClient = () => {
-  const { user } = useUserStore();
-
-  const { data } = FetchCollection("products", user.id!, "userId");
+const AllDrivers = () => {
+  const { data } = FetchDocuments("driver");
 
   return (
     <div className="px-4 mt-4">
       <div className="flex items-center justify-between pb-8">
-        <Heading
-          title={"View Products"}
-          description={"View and Edit Products"}
-        />
+        <Heading title={"View Drivers"} description={"View and Edit Drivers"} />
       </div>
 
       <Suspense fallback={<ItemsSkeleton />}>
-        <DataTable columns={columns} data={data} filterKey={"Name"} />
+        <DataTable columns={DriverColumns} data={data} filterKey={"name"} />
       </Suspense>
     </div>
   );
 };
-
-export default ItemsClient;
 
 const ItemsSkeleton = () => {
   return (
@@ -46,3 +38,4 @@ const ItemsSkeleton = () => {
     </div>
   );
 };
+export default AllDrivers;

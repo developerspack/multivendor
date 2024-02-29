@@ -23,7 +23,7 @@ interface CellActionProps {
   Name: string;
 }
 
-const CellActions = ({ data, Name }: CellActionProps) => {
+const DriverActions = ({ data, Name }: CellActionProps) => {
   const router = useRouter();
   const { user } = useUserStore();
 
@@ -31,7 +31,6 @@ const CellActions = ({ data, Name }: CellActionProps) => {
     navigator.clipboard.writeText(id);
     toast.success(`${Name} id Copied to the Clipboard`);
   };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -51,7 +50,7 @@ const CellActions = ({ data, Name }: CellActionProps) => {
         <DropdownMenuItem
           onClick={() =>
             router.push(
-              `/${user.role === "user" ? "user" : "admin"}/${user?.id}/${
+              `/${user.role === "admin" ? "admin" : "driver"}/${user?.id}/${
                 data.id
               }`
             )
@@ -73,4 +72,4 @@ const CellActions = ({ data, Name }: CellActionProps) => {
   );
 };
 
-export default CellActions;
+export default DriverActions;

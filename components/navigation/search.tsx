@@ -17,7 +17,7 @@ export const Search = () => {
 
     if (!value) return;
 
-    router.push(`/search?q=${value}`);
+    router.push(`/search?term=${value}`);
   };
 
   const onClear = () => {

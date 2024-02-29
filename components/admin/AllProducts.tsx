@@ -4,15 +4,12 @@ import { Suspense } from "react";
 
 import { DataTable } from "@/components/DataTable";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FetchCollection } from "@/Hooks/Hooks";
-import { useUserStore } from "@/store/user";
+import { FetchDocuments } from "@/Hooks/Hooks";
 import Heading from "@/components/heading";
 import { columns } from "@/components/columns";
 
-const ItemsClient = () => {
-  const { user } = useUserStore();
-
-  const { data } = FetchCollection("products", user.id!, "userId");
+const AllProducts = () => {
+  const { data } = FetchDocuments("products");
 
   return (
     <div className="px-4 mt-4">
@@ -30,8 +27,6 @@ const ItemsClient = () => {
   );
 };
 
-export default ItemsClient;
-
 const ItemsSkeleton = () => {
   return (
     <div>
@@ -46,3 +41,4 @@ const ItemsSkeleton = () => {
     </div>
   );
 };
+export default AllProducts;

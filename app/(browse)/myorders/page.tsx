@@ -1,3 +1,4 @@
+import Orders from "@/components/orders/Orders";
 import { FaShoppingBag } from "react-icons/fa";
 
 const MyOrders = () => {
@@ -12,7 +13,7 @@ const MyOrders = () => {
             </h3>
           </div>
           Your Order History
-          {/* <AllOrders /> */}
+          <Orders />
         </div>
       </div>
     </div>

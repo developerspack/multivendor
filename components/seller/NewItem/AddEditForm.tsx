@@ -16,8 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-// import { UpdateDcoument, uploadDocument } from "@/Hooks/Hooks";
 import { Textarea } from "@/components/ui/textarea";
 import UploadMultipleImages from "@/components/UploadMultipleImages";
 import Heading from "@/components/heading";
@@ -31,7 +29,6 @@ import {
 } from "@/components/ui/select";
 import { UpdateDcoument, uploadDocument } from "@/Hooks/Hooks";
 import { useUserStore } from "@/store/user";
-// import { useUserStore } from "@/store/user";
 
 // form velidation
 const formSchema = z.object({
@@ -116,7 +113,7 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
         await uploadDocument("products", uploadValues);
       }
       setIsLoading(false);
-      router.push(`/user/${user.id}/viewItems`);
+      router.push(`/user/${user.id}/viewProducts`);
     } catch (error) {
       console.error("Error uploading to Firebase:", error);
       setIsLoading(false);

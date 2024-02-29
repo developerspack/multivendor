@@ -27,6 +27,7 @@ const UserAvatar = () => {
       email: "",
       Name: "",
       photo: "",
+      role: "",
     });
     localStorage.setItem(
       "auth",
@@ -36,6 +37,7 @@ const UserAvatar = () => {
         email: "",
         Name: "",
         photo: "",
+        role: "",
       })
     );
     router.push("/");
@@ -46,12 +48,18 @@ const UserAvatar = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon" className="rounded-full">
           <Avatar>
-            <AvatarImage src={user.photo} />
+            <AvatarImage src={user.photo ? user.photo : ""} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        {user.role === "admin" && (
+          <DropdownMenuItem onClick={() => router.push(`/admin/${user?.id}`)}>
+            Admin
+          </DropdownMenuItem>
+        )}
+        <Separator />
         <DropdownMenuItem onClick={() => router.push("/cart")}>
           Cart
         </DropdownMenuItem>

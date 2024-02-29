@@ -16,7 +16,7 @@ const SuccessPage = () => {
           <p className="text-gray-400"> Have a great day! </p>
           <div className="py-10 text-center">
             <Link
-              href="/MyOrders"
+              href="/myorders"
               className="px-12 rounded-md bg-primary hover:bg-green-500 text-black font-semibold py-3"
             >
               View Your Odrers

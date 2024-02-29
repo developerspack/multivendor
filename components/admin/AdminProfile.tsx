@@ -1,15 +1,14 @@
 "use client";
 
 import { DataTable } from "@/components/DataTable";
-import { FetchCollection, FetchDocument } from "@/Hooks/Hooks";
+import { FetchDocument, FetchDocuments } from "@/Hooks/Hooks";
 import TableLoading from "@/components/TableLoading";
 import Moment from "react-moment";
 import { OrderColumn } from "../orders/OrderColumns";
 
-const Profile = ({ userId }: { userId: string }) => {
-  const { data, loading } = FetchCollection("orders", userId, "userId");
+const AdminProfile = ({ userId }: { userId: string }) => {
+  const { data, loading } = FetchDocuments("orders");
   const { document, isLoading } = FetchDocument("users", userId);
-
   return (
     <div>
       {!isLoading && (
@@ -38,7 +37,7 @@ const Profile = ({ userId }: { userId: string }) => {
               <DataTable
                 columns={OrderColumn}
                 data={data}
-                filterKey={"driverName"}
+                filterKey={"userName"}
               />
             </>
           )}
@@ -48,4 +47,4 @@ const Profile = ({ userId }: { userId: string }) => {
   );
 };
 
-export default Profile;
+export default AdminProfile;

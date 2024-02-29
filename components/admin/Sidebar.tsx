@@ -5,29 +5,44 @@ import { CgProfile } from "react-icons/cg";
 import { MdCreateNewFolder, MdOutlineCreateNewFolder } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { RiProductHuntFill, RiProductHuntLine } from "react-icons/ri";
+import { HiOutlineUsers } from "react-icons/hi2";
+import { HiMiniUsers } from "react-icons/hi2";
+
 import { useUserStore } from "@/store/user";
-import SidebarOption from "../navigation/SidebarOption";
+import SidebarOption from "@/components/navigation/SidebarOption";
 
 const Sidebar = () => {
   const { user } = useUserStore();
   const routes = [
     {
       label: "Profile",
-      href: `/user/${user?.id}`,
+      href: `/admin/${user?.id}`,
       icon: CgProfile,
       active: FaUserCircle,
     },
     {
-      label: "Create Products",
-      href: `/user/${user?.id}/new`,
+      label: "Add Driver",
+      href: `/admin/${user?.id}/addDriver`,
       icon: MdOutlineCreateNewFolder,
       active: MdCreateNewFolder,
     },
     {
+      label: "View Drivers",
+      href: `/admin/${user?.id}/viewDrivers`,
+      icon: HiOutlineUsers,
+      active: HiMiniUsers,
+    },
+    {
       label: "View Products",
-      href: `/user/${user?.id}/viewProducts`,
+      href: `/admin/${user?.id}/viewProducts`,
       icon: RiProductHuntLine,
       active: RiProductHuntFill,
+    },
+    {
+      label: "View Users",
+      href: `/admin/${user?.id}/viewAllUsers`,
+      icon: HiOutlineUsers,
+      active: HiMiniUsers,
     },
   ];
   const pathname = usePathname();

@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({ children, setOpen, open }) => {
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent>{children}</DialogContent>
+      {children}
     </Dialog>
   );
 };

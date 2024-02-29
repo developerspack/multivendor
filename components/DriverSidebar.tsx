@@ -4,30 +4,29 @@ import { usePathname } from "next/navigation";
 import { CgProfile } from "react-icons/cg";
 import { MdCreateNewFolder, MdOutlineCreateNewFolder } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
-import { RiProductHuntFill, RiProductHuntLine } from "react-icons/ri";
-import { useUserStore } from "@/store/user";
-import SidebarOption from "../navigation/SidebarOption";
 
-const Sidebar = () => {
+import { useUserStore } from "@/store/user";
+import SidebarOption from "@/components/navigation/SidebarOption";
+import { FetchDocuments } from "@/Hooks/Hooks";
+
+const DriverSidebar = () => {
   const { user } = useUserStore();
+  const { data, loading } = FetchDocuments("driver");
+  const userData = data.filter((driver: any) => driver.email === user.email!);
+  const userDetails = userData[0];
+
   const routes = [
     {
       label: "Profile",
-      href: `/user/${user?.id}`,
+      href: `/driver/${user?.id}`,
       icon: CgProfile,
       active: FaUserCircle,
     },
     {
-      label: "Create Products",
-      href: `/user/${user?.id}/new`,
+      label: "Edit profile",
+      href: `/driver/${user?.id}/${!loading && userDetails.id}`,
       icon: MdOutlineCreateNewFolder,
       active: MdCreateNewFolder,
-    },
-    {
-      label: "View Products",
-      href: `/user/${user?.id}/viewProducts`,
-      icon: RiProductHuntLine,
-      active: RiProductHuntFill,
     },
   ];
   const pathname = usePathname();
@@ -51,4 +50,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default DriverSidebar;

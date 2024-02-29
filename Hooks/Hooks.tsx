@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 
 export const LoginWithGoogle = () => {
   const { setUser } = useUserStore();
+
   // login with google
   const Login = () => {
     const provider = new GoogleAuthProvider();
@@ -31,29 +32,47 @@ export const LoginWithGoogle = () => {
       .then((result) => {
         // UserState
         const GetUser = async () => {
-          const DocRef = doc(db, "users", result.user.uid);
-          const DocSnap = await getDoc(DocRef);
-          if (!DocSnap.exists()) {
+          const DocSnap = await getDoc(doc(db, "users", result.user.uid));
+          if (DocSnap.exists()) {
+            // console.log("Document data:", docSnap.data());
+            const obj = {
+              id: result.user.uid,
+              ...DocSnap.data(),
+            };
+            const authData = {
+              isLoggedIn: true,
+              email: result.user.email,
+              Name: result.user.displayName,
+              photo: result.user.photoURL,
+              id: result.user.uid,
+              // @ts-ignore
+              role: obj.role,
+            };
+            localStorage.setItem("auth", JSON.stringify(authData));
+            setUser(authData);
+          } else {
             setDoc(doc(db, "users", result.user.uid), {
               id: result.user.uid,
               email: result.user.email,
               photo: result.user.photoURL,
               name: result.user.displayName,
+              role: "user",
               createdAt: Timestamp.now().toDate().toString(),
             });
+            const authData = {
+              isLoggedIn: true,
+              email: result.user.email,
+              Name: result.user.displayName,
+              photo: result.user.photoURL,
+              id: result.user.uid,
+              role: "user",
+            };
+            localStorage.setItem("auth", JSON.stringify(authData));
+            setUser(authData);
           }
         };
 
-        const authData = {
-          isLoggedIn: true,
-          email: result.user.email,
-          Name: result.user.displayName,
-          photo: result.user.photoURL,
-          id: result.user.uid,
-        };
-        localStorage.setItem("auth", JSON.stringify(authData));
         // @ts-ignore
-        setUser(authData);
         GetUser();
         toast.success("Login Successful");
       })
@@ -152,6 +171,7 @@ export const FetchCollection = (
   value: string | boolean,
   field: string
 ) => {
+  // get collection hooks
   const [data, setData] = useState<any | []>([]);
   const [loading, setloading] = useState(true);
 

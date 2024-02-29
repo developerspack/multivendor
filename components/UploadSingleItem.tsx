@@ -48,7 +48,7 @@ const UploadSingleItem = ({
       const downloadURL = await getDownloadURL(imageRef);
       setSelectedFile(downloadURL);
       setLoading(false);
-      toast.success(`Product Image uploaded Successfully!`, {
+      toast.success(`Image uploaded Successfully!`, {
         id: notification,
       });
     } catch (error) {

@@ -2,19 +2,18 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { RiArrowUpDownFill } from "react-icons/ri";
-import Moment from "react-moment";
 
 import { Button } from "@/components/ui/button";
-import CellActions from "@/components/seller/CellActions";
+import DriverActions from "./DriverActions";
 
-export const columns: ColumnDef<any>[] = [
+export const DriverColumns: ColumnDef<any>[] = [
   {
-    accessorKey: "imageUrl",
+    accessorKey: "photo",
     header: "Image",
     cell: ({ row }) => (
       <div className="text-center">
         <img
-          src={row.getValue("imageUrl")}
+          src={row.getValue("photo")}
           alt="itemImage"
           className="h-10 w-10 rounded-md"
         />
@@ -23,7 +22,7 @@ export const columns: ColumnDef<any>[] = [
   },
 
   {
-    accessorKey: "Name",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
@@ -38,7 +37,11 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "Price",
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "price",
     header: ({ column }) => {
       return (
         <Button
@@ -52,7 +55,7 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("Price"));
+      const amount = parseFloat(row.getValue("price"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "Ksh",
@@ -61,29 +64,9 @@ export const columns: ColumnDef<any>[] = [
       return <div className="font-medium">{formatted}</div>;
     },
   },
-
-  {
-    accessorKey: "Discount",
-    header: "Discount",
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("Price"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "Ksh",
-      }).format(amount);
-
-      return <div className="font-medium">{formatted}</div>;
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Created At",
-    cell: ({ row }) => <Moment fromNow>{row.getValue("createdAt")}</Moment>,
-  },
-
   {
     id: "actions",
     header: "Actions",
-    cell: ({ row }) => <CellActions data={row.original} Name="products" />,
+    cell: ({ row }) => <DriverActions data={row.original} Name="driver" />,
   },
 ];
