@@ -14,7 +14,6 @@ const Header = () => {
           </div>
           <div className="hidden lg:block">
             <p className="text-lg font-semibold">MultiVendor</p>
-            <p className="text-xs text-muted-foreground">Buy and Sell</p>
           </div>
         </div>
       </Link>

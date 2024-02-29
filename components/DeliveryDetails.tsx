@@ -14,7 +14,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import useCart from "@/store/use-cart";
 import { useUserStore } from "@/store/user";
 import { Timestamp } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDriverStore } from "@/store/DriverStore";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -113,6 +113,12 @@ const DeliveryDetails = ({ setOpen, open }: ChooseDriverProps) => {
     }
   };
 
+  useEffect(() => {
+    if (isLoading) {
+      setOpen(true);
+    }
+  }, [isLoading, open]);
+
   return (
     <Modal open={open} setOpen={setOpen}>
       <DialogHeader>
@@ -156,7 +162,9 @@ const DeliveryDetails = ({ setOpen, open }: ChooseDriverProps) => {
                 )}
               />
               <DialogFooter>
-                <Button onClick={() => setOpen(false)}>Cancel</Button>
+                <Button disabled={isLoading} onClick={() => setOpen(false)}>
+                  Cancel
+                </Button>
                 <Button type="submit" disabled={isLoading}>
                   Contiue
                 </Button>
