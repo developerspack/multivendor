@@ -16,7 +16,7 @@ const ViewDriver = ({ data: driverData }: { data: any }) => {
     (driver: any) => driver.email === driverData.driverEmail
   );
   const document = userData[0];
-  //   console.log(userData);
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -27,19 +27,17 @@ const ViewDriver = ({ data: driverData }: { data: any }) => {
           <DialogTitle>Driver Details</DialogTitle>
         </DialogHeader>
         {!loading && (
-          <div className="flex justify-center items-center">
-            <div className="space-y-3">
-              <img
-                src={document.photo}
-                alt=""
-                className="rounded-full h-40 w-40"
-              />
-              <p className="ml-8">{document.name}</p>
-              <p>{document.email}</p>
-              <p className="ml-10">
-                <Moment fromNow>{document.createdAt}</Moment>
-              </p>
-            </div>
+          <div className="space-y-3 flex flex-col justify-center items-center">
+            <img src={document.photo} alt="" className="rounded-lg size-60" />
+            <p className="">{document.name}</p>
+            <p>{document.email}</p>
+            <p>Avarange Delivery Time: {document.AvarangeDeliveryTime}</p>
+            <p className="">
+              CreatedAt:
+              <Moment fromNow className="ml-2">
+                {document.createdAt}
+              </Moment>
+            </p>
           </div>
         )}
       </DialogContent>

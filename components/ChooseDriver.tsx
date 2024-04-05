@@ -11,13 +11,13 @@ import {
 } from "@/components/ui/dialog";
 import TableLoading from "./TableLoading";
 import { DataTable } from "./DataTable";
-import { ChooseDriverColumns } from "./ChooseDriverColumns";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import { useDriverStore } from "@/store/DriverStore";
 import { toast } from "sonner";
 import DeliveryDetails from "./DeliveryDetails";
+import ChooseDriverActions from "./ChooseDriverActions";
 
 interface ChooseDriverProps {
   open: boolean;
@@ -44,7 +44,7 @@ const ChooseDriver = ({ setOpen, open }: ChooseDriverProps) => {
       <DeliveryDetails open={modal} setOpen={setModal} />
       <Modal open={open} setOpen={setOpen}>
         <DialogHeader>
-          <DialogContent className="max-w-2xl">
+          <DialogContent>
             <DialogTitle>Choose Driver</DialogTitle>
             <DialogDescription className="flex justify-between">
               Choose Driver who will deliver your order.
@@ -58,11 +58,21 @@ const ChooseDriver = ({ setOpen, open }: ChooseDriverProps) => {
                   Selected Driver:{" "}
                   {driver.name === "" ? "None Selected" : driver.name}
                 </p>
-                <DataTable
-                  columns={ChooseDriverColumns}
-                  data={data}
-                  filterKey={"name"}
-                />
+                {data.map((driver: any) => (
+                  <div className="flex gap-3 my-2">
+                    <img
+                      src={driver.photo}
+                      className="size-36 rounded-md"
+                      alt=""
+                    />
+                    <div className="space-y-2">
+                      <p>{driver.name}</p>
+                      <p>Ksh{driver.price} per mile</p>
+                      <p>Avarage drive time: {driver.AvarangeDeliveryTime}</p>
+                      <ChooseDriverActions data={driver} />
+                    </div>
+                  </div>
+                ))}
               </ScrollArea>
             )}
             <DialogFooter>

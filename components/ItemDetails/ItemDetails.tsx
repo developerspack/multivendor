@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import ImageCarousel from "./ImageCarousel";
 import { useUserStore } from "@/store/user";
 import { FetchDocument } from "@/Hooks/Hooks";
+import { Button } from "@/components/ui/button";
+import useCart from "@/store/use-cart";
 
 const ItemDetails = ({
   id,
@@ -21,9 +23,8 @@ const ItemDetails = ({
   Category,
   userId,
   Description,
+  data,
 }: any) => {
-  const router = useRouter();
-
   const formatted = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "Ksh",
@@ -31,6 +32,16 @@ const ItemDetails = ({
 
   const { user } = useUserStore();
   const { document } = FetchDocument("users", userId);
+
+  const cart = useCart();
+
+  const onAddToCart = () => {
+    const product = {
+      ...data,
+      qty: 1,
+    };
+    cart.addItem(product);
+  };
 
   // console.log(user);
 
@@ -41,13 +52,19 @@ const ItemDetails = ({
         {user.id === userId && (
           <Link
             href={`/user/${user?.id}/${id}`}
-            className="flex items-center justify-center gap-1 font-medium p-3
+            className="flex items-center justify-center gap-1 font-medium px-3 py-0
             cursor-pointer text-black bg-green-400 hover:bg-green-500 rounded-lg"
           >
             <FaEdit className="h-5 w-5" />
             <span>Edit</span>
           </Link>
         )}
+        <Button
+          className="bg-blue-500 hover:bg-blue-600 mb-4 float-right mr-4"
+          onClick={onAddToCart}
+        >
+          Add To Cart
+        </Button>
       </div>
       <div className="block lg:flex gap-5">
         <div className="w-full block mt-10 lg:mt-0">
@@ -70,7 +87,7 @@ const ItemDetails = ({
             <h2 className="text-2xl md:text-3xl line-clamp-1 mb-3">{Name}</h2>
             <Link href={`/user/${userId}`} className="mt-4">
               <span className="font-medium text-lg text-blue-500">
-                Auctioneer:{" "}
+                Source:{" "}
               </span>{" "}
               <span className="hover:underline underline-offset-3">
                 {document.name}
@@ -78,9 +95,23 @@ const ItemDetails = ({
             </Link>
             {/* price */}
             <div className="flex items-center gap-2">
-              <span className="text-blue-300">Starting Price:</span>
-              <span className="text-xl font-bold">{formatted}</span>
+              <span className="text-blue-500">Price:</span>
+              <span className="text-xl font-bold">
+                {formatted} per {data.Measurement}
+              </span>
             </div>
+            <div className="flex items-center gap-2">
+              <span className="text-blue-500">Location:</span>
+              <span className="text-xl font-bold">{data.Location}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-blue-500">Size:</span>
+              <span className="text-xl font-bold">{data.Size}</span>
+            </div>
+            {/* <div className="flex items-center gap-2">
+              <span className="text-blue-500">Coming:</span>
+              <span className="text-xl font-bold">{data.Source}</span>
+            </div> */}
           </div>
         </div>
       </div>

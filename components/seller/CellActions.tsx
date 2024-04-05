@@ -49,13 +49,7 @@ const CellActions = ({ data, Name }: CellActionProps) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem
-          onClick={() =>
-            router.push(
-              `/${user.role === "user" ? "user" : "admin"}/${user?.id}/${
-                data.id
-              }`
-            )
-          }
+          onClick={() => router.push(`/user/${user?.id}/${data.id}`)}
         >
           <BiEdit className="h-4 w-4 mr-2 text-green-400" />
           Edit

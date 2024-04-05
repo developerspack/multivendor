@@ -1,24 +1,46 @@
 "use client";
 
+import { useState } from "react";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { ItemCard, ResultCardSkeleton } from "./ItemCard";
 import { FetchDocuments } from "@/Hooks/Hooks";
+import CategoryNav from "../CategoryNav";
 
 export const Item = () => {
   const { data, loading } = FetchDocuments("products");
+  const [cat, setCat] = useState("All");
+
+  const FilteredProducts = data.filter(
+    (product: any) => product.Category === cat
+  );
+
   return (
     <>
       {loading ? (
         <ResultsSkeleton />
       ) : (
         <>
-          <h2 className="text-lg font-semibold mb-4">
-            Items we think you will like
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2">
-            {data.map((result: any) => (
-              <ItemCard key={result.id} data={result} />
-            ))}
+          <CategoryNav setCat={setCat} cat={cat} />
+          {FilteredProducts.length === 0 && cat !== "All" && (
+            <h1 className="flex items-center justify-center text-xl font-bold  my-4">
+              Empty Playlist
+            </h1>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2 my-4">
+            {cat === "All" ? (
+              <>
+                {data.map((result: any) => (
+                  <ItemCard key={result.id} data={result} />
+                ))}
+              </>
+            ) : (
+              <>
+                {FilteredProducts.map((result: any) => (
+                  <ItemCard key={result.id} data={result} />
+                ))}
+              </>
+            )}
           </div>
         </>
       )}

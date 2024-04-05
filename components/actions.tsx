@@ -47,7 +47,7 @@ export const Actions = () => {
       </div>
       {user.isLoggedIn && (
         <div className="flex items-center gap-x-4">
-          <Hint label="Seller's Dashboard">
+          <Hint label="Source Dashboard">
             <Button
               size="sm"
               variant="ghost"

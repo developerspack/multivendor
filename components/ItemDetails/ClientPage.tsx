@@ -35,7 +35,7 @@ const ClientPage = ({ id }: { id: string }) => {
       <div className="py-6 p-5 bg-stone-900/10 dark:bg-stone-50/10 mt-6 rounded-md shadow-xl">
         {/* product card */}
         <div className="mt-6 rounded-lg mb-24 md:mb-12 flex">
-          <ItemDetails {...document} />
+          <ItemDetails {...document} data={document} />
         </div>
       </div>
     </>

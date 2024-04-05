@@ -26,6 +26,7 @@ const formSchema = z.object({
   name: z.string().min(1),
   email: z.string().min(1),
   photo: z.string().min(1),
+  AvarangeDeliveryTime: z.string().min(1),
   price: z.coerce.number().min(1).default(400),
   role: z.string().optional().default("driver"),
 });
@@ -71,6 +72,7 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
         photo: "",
         price: 400,
         role: "driver",
+        AvarangeDeliveryTime: "",
       };
 
   const form = useForm({
@@ -155,8 +157,27 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
+                      type="email"
                       disabled={isLoading}
                       placeholder="Email"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="AvarangeDeliveryTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Avarange Delivery Time</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Avarange Delivery Time"
                       {...field}
                     />
                   </FormControl>

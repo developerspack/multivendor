@@ -49,20 +49,28 @@ export const ItemCard = ({ data }: ItemCardProps) => {
               {data.Name}
             </p>
             <div className="flex items-center gap-2">
-              <span className="text-blue-300">Price:</span>
-              <span className="text-base font-bold">{formatted}</span>
+              <span className="text-blue-500 text-base font-semibold">
+                Price:
+              </span>
+              <span className="font-medium">
+                {formatted} per {data.Measurement}
+              </span>
             </div>
             <Link
               href={`/sellerProfile/${data.userId}`}
               className="truncate font-semibold"
             >
               <span className="font-medium text-lg text-blue-500">
-                Seller:{" "}
+                Source:{" "}
               </span>{" "}
               <span className="hover:underline underline-offset-3">
                 {document.name}
               </span>
             </Link>
+            <span className="font-medium text-lg text-blue-500">
+              Location:
+              <span className="text-white ml-2">{data.Location}</span>
+            </span>
           </div>
         </div>
         <Button

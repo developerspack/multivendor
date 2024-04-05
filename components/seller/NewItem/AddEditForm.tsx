@@ -29,17 +29,21 @@ import {
 } from "@/components/ui/select";
 import { UpdateDcoument, uploadDocument } from "@/Hooks/Hooks";
 import { useUserStore } from "@/store/user";
+import { Category } from "@/constants/category";
 
 // form velidation
 const formSchema = z.object({
   Name: z.string().min(1),
-  Brand: z.string().min(1),
   imageUrl: z.string().min(1),
   otherImageUrl: z.string().array().optional().default([]),
   Category: z.string().min(1),
   Description: z.string().min(1),
-  Discount: z.coerce.number().min(1),
+  // Discount: z.coerce.number(),
   Price: z.coerce.number().min(1),
+  Source: z.string().min(1),
+  Size: z.string().min(1),
+  Location: z.string().min(1),
+  Measurement: z.string().min(1),
 });
 
 interface AddEditFormProps {
@@ -83,13 +87,16 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
       }
     : {
         Name: "",
-        Brand: "",
         imageUrl: "",
         otherImageUrl: [],
         Price: 0,
-        Discount: 0,
+        // Discount: 0,
         Category: "",
         Description: "",
+        Location: "",
+        Size: "",
+        Source: "",
+        Measurement: "",
       };
 
   const form = useForm({
@@ -223,8 +230,26 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
                 </FormItem>
               )}
             />
-            {/* discount */}
+
             <FormField
+              control={form.control}
+              name="Measurement"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Measurement</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Measurement"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            {/* discount */}
+            {/* <FormField
               control={form.control}
               name="Discount"
               render={({ field }) => (
@@ -234,6 +259,53 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
                     <Input
                       disabled={isLoading}
                       placeholder="Discount"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            /> */}
+            <FormField
+              control={form.control}
+              name="Location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Location</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Location"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="Size"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel> Size</FormLabel>
+                  <FormControl>
+                    <Input disabled={isLoading} placeholder="Size" {...field} />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="Source"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Source</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Source"
                       {...field}
                     />
                   </FormControl>
@@ -263,7 +335,9 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value={"category.Category"}></SelectItem>
+                      {Category.slice(1).map((category) => (
+                        <SelectItem value={category}>{category}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -271,35 +345,6 @@ const AddEditForm = ({ initialData, id }: AddEditFormProps) => {
               )}
             />
 
-            {/* brands */}
-            <FormField
-              control={form.control}
-              name="Brand"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Brand</FormLabel>
-                  <Select
-                    disabled={isLoading}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value}
-                          placeholder="Select a Brand"
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value={"brand.Brand"}></SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             {/* btn */}
             <Button
               disabled={isLoading}
