@@ -59,7 +59,7 @@ const ChooseDriver = ({ setOpen, open }: ChooseDriverProps) => {
                   {driver.name === "" ? "None Selected" : driver.name}
                 </p>
                 {data.map((driver: any) => (
-                  <div className="flex gap-3 my-2">
+                  <div className="flex gap-3 my-2" key={driver.id}>
                     <img
                       src={driver.photo}
                       className="size-36 rounded-md"
