@@ -10,8 +10,9 @@ const CategoryNav = ({
 }) => {
   return (
     <div className="flex gap-4">
-      {Category.map((category) => (
+      {Category.map((category, i) => (
         <div
+          key={i}
           className={cn(
             "p-2 px-3 bg-zinc-200 dark:bg-slate-900 rounded-lg cursor-pointer transition h-fit",
             cat === category && "bg-zinc-400 dark:bg-neutral-800"
